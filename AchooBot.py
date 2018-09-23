@@ -20,7 +20,8 @@ async def on_ready():
 @bot.command()
 async def storymessage(ctx, message, destination):
     author = ctx.message.author
-    if author.id == 179686717534502913 or author.id == 194276511648448514 or author.name = 'wyatt':
+    moderator = discord.utils.get(ctx.message.guild.roles, name='Moderator')
+    if moderator in author.roles:
         channel = ctx.message.channel_mentions[0]
         await channel.send(message)
 
