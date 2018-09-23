@@ -20,7 +20,7 @@ async def on_ready():
 @bot.command()
 async def storymessage(ctx, message):
     author = ctx.message.author
-    if author.id == 179686717534502913 or author.id == 194276511648448514:
+    if author.id == 179686717534502913 or author.id == 194276511648448514 or author.id == 312996476286402560:
         channel = bot.get_channel(471908035426648064)
         await channel.send(message)
 
