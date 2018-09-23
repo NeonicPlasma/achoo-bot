@@ -48,13 +48,13 @@ async def kill(ctx, person):
 
 @bot.command()
 async def status(ctx, mode):
-    if mode = '1':
+    if mode == '1':
         await bot.change_presence(status=discord.Status.online, activity=game)
-    elif mode = '2':
+    elif mode == '2':
         await bot.change_presence(status=discord.Status.idle, activity=game)
-    elif mode = '3':
+    elif mode == '3':
         await bot.change_presence(status=discord.Status.dnd, activity=game)
-    elif mode = '4':
+    elif mode == '4':
         await bot.change_presence(status=discord.Status.invisible, activity=game)
 
 bot.run(os.getenv('TOKEN'))
