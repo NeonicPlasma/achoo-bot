@@ -30,7 +30,7 @@ async def storymessage(ctx, message, destination):
 async def kill(ctx, person):
     author = ctx.message.author
     eliminated = discord.utils.get(ctx.message.guild.roles, name='Eliminated')
-    alive = discord.utils.get(ctx.message.guild.roles, name='Alive')
+    alive = discord.utils.get(ctx.message.guild.roles, name='Currently Alive')
     if author.id == 194276511648448514:
         personMentioned = ctx.message.mentions[0]
         roles = personMentioned.roles
