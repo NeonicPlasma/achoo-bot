@@ -51,7 +51,7 @@ async def createAliveCustomRoles(ctx):
             else:
                 personMessage = contestant.name + ", "
             finishedMessage += personMessage
-        await ctx.send(personMessage)
+        await ctx.send(finishedMessage)
 
 @bot.command()
 async def kill(ctx, person):
