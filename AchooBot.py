@@ -27,12 +27,19 @@ async def storymessage(ctx, message, destination):
         await channel.send(message)
         
 @bot.command()
-async def roletest(ctx):
+async def createAliveCustomRoles(ctx):
     author = ctx.message.author
     guild = ctx.message.guild
     moderator = discord.utils.get(guild.roles, name='Moderator')
     if moderator in author.roles:
-        await guild.create_role(name="testing role")
+        aliveRole = discord.utils.get(ctx.message.guild.roles, name='Currently Alive')
+        alivePeople = aliveRole.members
+        if len(alivePeople) == 1:
+            await ctx.send("Giving 1 alive contestant a custom role...")
+        else:
+            await ctx.send("Giving " + str(len(alivePeople)) + " alive contestants a custom role...")
+        for contestant in alivePeople:
+            await guild.create_role(name = contestant.name)
 
 @bot.command()
 async def kill(ctx, person):
