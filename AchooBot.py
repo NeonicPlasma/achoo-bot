@@ -54,7 +54,7 @@ async def createAliveCustomRoles(ctx):
         await ctx.send(finishedMessage)
 
 @bot.command()
-async def kill(ctx, person):
+async def kill(ctx):
     author = ctx.message.author
     eliminated = discord.utils.get(ctx.message.guild.roles, name='Eliminated')
     alive = discord.utils.get(ctx.message.guild.roles, name='Currently Alive')
@@ -89,6 +89,51 @@ async def kill(ctx, person):
                         else:
                             playerMessage = contestant.name + ", "
                         completionMessage += playerMessage
+            await ctx.send(completionMessage)
+            if errorMessage != "":
+                await ctx.send(errorMessage)
+    else:
+        await ctx.send("You have no permission to use this command.")
+        
+@bot.command()
+async def prize(ctx):
+    author = ctx.message.author
+    prized = discord.utils.get(ctx.message.guild.roles, name='Prize Winner')
+    alive = discord.utils.get(ctx.message.guild.roles, name='Currently Alive')
+    if author.id == 194276511648448514:
+        prizedPeople = ctx.message.mentions
+        errorMessage = ""
+        completionMessage = "Given the prize role to "
+        playerMessage = ""
+        loop = 0
+        for prizedPerson in prized.members:
+            if prizedPerson in prizedPeople:
+                pass
+            else:
+                prizedPerson.remove_roles(prized)
+        if len(killedPeople) != 0:
+            if len(killedPeople) == 1:
+                await ctx.send("Giving prize to 1 contestant...")
+            else:
+                await ctx.send("Giving prize to " + str(len(killedPeople)) + " contestants...")
+            for contestant in killedPeople:    
+                roles = contestant.roles
+                if not alive in roles:
+                    playerMessage = "\n" + contestant.name + " is not a contestant!"
+                    errorMessage += playerMessage
+                else:
+                    loop += 1
+                    if prized in roles:
+                        pass
+                    else:
+                        await contestant.add_roles(prized)
+                    if loop == len(killedPeople):
+                        playerMessage = contestant.name + ". Good job."
+                    elif loop == len(killedPeople) - 1:
+                        playerMessage = contestant.name + " and "
+                    else:
+                        playerMessage = contestant.name + ", "
+                    completionMessage += playerMessage
             await ctx.send(completionMessage)
             if errorMessage != "":
                 await ctx.send(errorMessage)
