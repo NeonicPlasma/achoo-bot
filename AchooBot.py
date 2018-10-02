@@ -59,17 +59,39 @@ async def kill(ctx, person):
     eliminated = discord.utils.get(ctx.message.guild.roles, name='Eliminated')
     alive = discord.utils.get(ctx.message.guild.roles, name='Currently Alive')
     if author.id == 194276511648448514:
-        personMentioned = ctx.message.mentions[0]
-        roles = personMentioned.roles
-        if eliminated in roles:
-            await ctx.send("This person is already eliminated!")
-        else:
-            if not alive in roles:
-                await ctx.send("This person is not a contestant!")
+        killedPeople = ctx.message.mentions
+        errorMessage = ""
+        completionMessage = ""
+        playerMessage = ""
+        loop = 0
+        if len(killedPeople) != 0:
+            if len(killedPeople) == 1:
+                await ctx.send("Killing 1 contestant...")
             else:
-                await ctx.send("Killed " + personMentioned.name + ". Rest in peace.")
-                await personMentioned.add_roles(eliminated)
-                await personMentioned.remove_roles(alive)
+                await ctx.send("Killing " + str(len(killedPeople)) + " contestants...")
+            for contestant in killedPeople:    
+                roles = contestant.roles
+                if eliminated in roles:
+                    playerMessage = "\n" + contestant.name + " is already eliminated!"
+                    errorMessage += playerMessage
+                else:
+                    if not alive in roles:
+                        playerMessage = "\n" + contestant.name + " is not a contestant!"
+                        errorMessage += playerMessage
+                    else:
+                        loop += 1
+                        await contestant.remove_roles(alive)
+                        await contestant.add_roles(eliminated)
+                        if loop == len(killedPeople):
+                            playerMessage = contestant.name + ". Rest in peace."
+                        elif loop == len(killedPeople) - 1:
+                            playerMessage = contestant.name + " and "
+                        else:
+                            playerMessage = contestant.name + ", "
+                        completionMessage += playerMessage
+            await ctx.send(completionMessage)
+            if errorMessage != "":
+                await ctx.send(errorMessage)
     else:
         await ctx.send("You have no permission to use this command.")
 
