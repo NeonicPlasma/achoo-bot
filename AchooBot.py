@@ -31,6 +31,7 @@ async def createAliveCustomRoles(ctx):
     author = ctx.message.author
     guild = ctx.message.guild
     moderator = discord.utils.get(guild.roles, name='Moderator')
+    finishedMessage = "Given custom roles to "
     if moderator in author.roles:
         aliveRole = discord.utils.get(ctx.message.guild.roles, name='Currently Alive')
         alivePeople = aliveRole.members
@@ -38,8 +39,19 @@ async def createAliveCustomRoles(ctx):
             await ctx.send("Giving 1 alive contestant a custom role...")
         else:
             await ctx.send("Giving " + str(len(alivePeople)) + " alive contestants a custom role...")
+        personMessage = ""
+        loop = 0
         for contestant in alivePeople:
+            loop += 1
             await guild.create_role(name = contestant.name)
+            if loop == len(alivePeople):
+                personMessage = contestant.name + "."
+            elif loop == len(alivePeople) - 1:
+                personMessage = contestant.name + " and "
+            else:
+                personMessage = contestant.name + ", "
+            finishedMessage += personMessage
+        await ctx.send(personMessage)
 
 @bot.command()
 async def kill(ctx, person):
