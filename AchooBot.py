@@ -61,7 +61,7 @@ async def kill(ctx, person):
     if author.id == 194276511648448514:
         killedPeople = ctx.message.mentions
         errorMessage = ""
-        completionMessage = ""
+        completionMessage = "Killed "
         playerMessage = ""
         loop = 0
         if len(killedPeople) != 0:
