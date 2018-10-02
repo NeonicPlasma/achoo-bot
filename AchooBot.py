@@ -116,7 +116,7 @@ async def prize(ctx):
                 await ctx.send("Giving prize to 1 contestant...")
             else:
                 await ctx.send("Giving prize to " + str(len(prizedPeople)) + " contestants...")
-            for contestant in killedPeople:    
+            for contestant in prizedPeople:    
                 roles = contestant.roles
                 if not alive in roles:
                     playerMessage = "\n" + contestant.name + " is not a contestant!"
