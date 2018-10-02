@@ -25,6 +25,14 @@ async def storymessage(ctx, message, destination):
     if moderator in author.roles:
         channel = ctx.message.channel_mentions[0]
         await channel.send(message)
+        
+@bot.command()
+async def roletest(ctx):
+    author = ctx.message.author
+    guild = ctx.message.guild
+    moderator = discord.utils.get(guild.roles, name='Moderator')
+    if moderator in author.roles:
+        await guild.create_role(name="testing role")
 
 @bot.command()
 async def kill(ctx, person):
