@@ -111,11 +111,11 @@ async def prize(ctx):
                 pass
             else:
                 prizedPerson.remove_roles(prized)
-        if len(killedPeople) != 0:
-            if len(killedPeople) == 1:
+        if len(prizedPeople) != 0:
+            if len(prizedPeople) == 1:
                 await ctx.send("Giving prize to 1 contestant...")
             else:
-                await ctx.send("Giving prize to " + str(len(killedPeople)) + " contestants...")
+                await ctx.send("Giving prize to " + str(len(prizedPeople)) + " contestants...")
             for contestant in killedPeople:    
                 roles = contestant.roles
                 if not alive in roles:
@@ -127,9 +127,9 @@ async def prize(ctx):
                         pass
                     else:
                         await contestant.add_roles(prized)
-                    if loop == len(killedPeople):
+                    if loop == len(prizedPeople):
                         playerMessage = contestant.name + ". Good job."
-                    elif loop == len(killedPeople) - 1:
+                    elif loop == len(prizedPeople) - 1:
                         playerMessage = contestant.name + " and "
                     else:
                         playerMessage = contestant.name + ", "
